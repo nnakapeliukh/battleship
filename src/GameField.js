@@ -23,7 +23,13 @@ const GameField = (props) => {
               );
             } else {
               return (
-                <div className="empty-cell" key={"empty" + [row, column]}></div>
+                <div
+                  className="empty-cell"
+                  id={[row, column]}
+                  onDrop={props.handleDrop}
+                  onDragOver={props.allowDrop}
+                  key={"empty" + [row, column]}
+                ></div>
               );
             }
           });

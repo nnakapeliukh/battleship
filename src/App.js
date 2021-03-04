@@ -2,6 +2,7 @@ import GameField from "./GameField";
 import GameboardFactory from "./GameboardFactory";
 import PlayerFactory from "./PlayerFactory";
 import { useEffect, useState } from "react";
+import DragShips from "./DragShips";
 
 function App(props) {
   const [humanBoard, setHumanBoard] = useState(GameboardFactory());
@@ -63,13 +64,38 @@ function App(props) {
     }
   }, [gameOver]);
 
+  const drag = (ev) => {
+    ev.dataTransfer.setData("text", ev.target.id);
+  };
+
+  const drop = (ev) => {
+    ev.preventDefault();
+    let data = ev.dataTransfer.getData("text");
+    console.log(data);
+
+    console.log(ev.target.id);
+    //extract info
+    let row = Number(ev.target.id[0]);
+    let column = Number(ev.target.id[2]);
+    let size = Number(data[0]);
+    let orientation = data[1] === "h" ? "horizontal" : "vertical";
+    humanBoard.placeShip(row, column, size, orientation);
+  };
+
+  const allowDrop = (ev) => {
+    ev.preventDefault();
+  };
+
   return (
     <div className="App">
       <GameField
         myField={humanBoard.getField()}
         enemyField={pcBoard.getField()}
         handleClick={playerAttacks}
+        handleDrop={drop}
+        allowDrop={allowDrop}
       />
+      <DragShips handleDrag={drag} />
     </div>
   );
 }

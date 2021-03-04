@@ -24,6 +24,11 @@
   border: black 1px solid;
 }
 
+.empty-cell:hover {
+  transform: scale(1.1);
+  background-color: rgb(0, 214, 214);
+}
+
 .ship-cell {
   width: var(--cell-size);
   height: var(--cell-size);
