@@ -24,7 +24,14 @@
   border: black 1px solid;
 }
 
-.empty-cell:hover {
+.empty-cell-highlight {
+  width: var(--cell-size);
+  height: var(--cell-size);
+  background-color: rgb(0, 122, 122);
+  border: black 1px solid;
+}
+
+.empty-cell:target {
   transform: scale(1.1);
   background-color: rgb(0, 214, 214);
 }

@@ -1,6 +1,21 @@
 import "./styles/GameField.css";
 
 const GameField = (props) => {
+  const allowDrop = (ev) => {
+    ev.preventDefault();
+
+    if (ev.target.className === "empty-cell") {
+      ev.target.className = "empty-cell-highlight";
+    }
+  };
+
+  const highleghtCell = (ev) => {
+    console.log(ev);
+    if (ev.target.className === "empty-cell-highlight") {
+      ev.target.className = "empty-cell";
+    }
+  };
+
   return (
     <div>
       <div className="my-field-grid">
@@ -27,7 +42,8 @@ const GameField = (props) => {
                   className="empty-cell"
                   id={[row, column]}
                   onDrop={props.handleDrop}
-                  onDragOver={props.allowDrop}
+                  onDragOver={allowDrop}
+                  onDragLeave={highleghtCell}
                   key={"empty" + [row, column]}
                 ></div>
               );

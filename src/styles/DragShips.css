@@ -1,7 +1,25 @@
-.big-ship {
+.i2-ship {
   display: block;
-  width: 100px;
-  height: 100px;
-  background-color: black;
+  width: 80px;
+  height: 40px;
+  cursor: move;
+}
+.i3-ship {
+  display: block;
+  width: 120px;
+  height: 40px;
+  cursor: move;
+}
+.i4-ship {
+  display: block;
+  width: 160px;
+  height: 40px;
+  cursor: move;
+}
+
+.i5-ship {
+  display: block;
+  width: 200px;
+  height: 40px;
   cursor: move;
 }

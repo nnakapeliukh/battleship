@@ -13,7 +13,7 @@ describe("Gameboard places ships", () => {
 
   it("should NOT place a ship if out of reach", () => {
     const Board = GameboardFactory();
-    expect(() => Board.placeShip(6, 6, 5, "horizontal")).toThrow();
+    expect(() => Board.placeShip(9, 9, 5, "horizontal")).toThrow();
     expect(() => Board.placeShip(6, 6, 5, "vertical")).toThrow();
   });
 

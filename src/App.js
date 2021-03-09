@@ -68,6 +68,11 @@ function App(props) {
     ev.dataTransfer.setData("text", ev.target.id);
   };
 
+  const [twoShip, setTwoship] = useState(true);
+  const [threeShip, setThreeship] = useState(true);
+  const [fourShip, setFourship] = useState(true);
+  const [fiveShip, setFiveship] = useState(true);
+
   const drop = (ev) => {
     ev.preventDefault();
     let data = ev.dataTransfer.getData("text");
@@ -79,11 +84,20 @@ function App(props) {
     let column = Number(ev.target.id[2]);
     let size = Number(data[0]);
     let orientation = data[1] === "h" ? "horizontal" : "vertical";
-    humanBoard.placeShip(row, column, size, orientation);
-  };
+    try {
+      humanBoard.placeShip(row, column, size, orientation);
+    } catch (error) {
+      console.log(error);
 
-  const allowDrop = (ev) => {
-    ev.preventDefault();
+      //change the cell that was highlited back to empty
+      let cell = document.getElementsByClassName("empty-cell-highlight");
+      for (const item of cell) {
+        item.className = "empty-cell";
+      }
+    } finally {
+      //trigger rerender
+      setIsHumanAttacking(true);
+    }
   };
 
   return (
@@ -93,9 +107,14 @@ function App(props) {
         enemyField={pcBoard.getField()}
         handleClick={playerAttacks}
         handleDrop={drop}
-        allowDrop={allowDrop}
       />
-      <DragShips handleDrag={drag} />
+      <DragShips
+        handleDrag={drag}
+        twoShip={twoShip}
+        threeShip={threeShip}
+        fourShip={fourShip}
+        fiveShip={fiveShip}
+      />
     </div>
   );
 }
