@@ -107,8 +107,8 @@ function App(props) {
 
       //change the cell that was highlited back to empty
       let cell = document.getElementsByClassName("empty-cell-highlight");
-      for (const item of cell) {
-        item.className = "empty-cell";
+      while (cell.length > 0) {
+        cell[0].className = "empty-cell";
       }
     } finally {
       //trigger rerender
