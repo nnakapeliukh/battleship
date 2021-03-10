@@ -26,10 +26,10 @@ function App(props) {
   const [isHumanAttacking, setIsHumanAttacking] = useState(false);
 
   const playerAttacks = (event) => {
-    const rawAttack = event.target.id;
+    const rawAttack = event.target.id; //raw attack is id of the cell - "enemy1,1"
     if (humanPlayer.isMyTurn()) {
       pcBoard.receiveAttack(
-        humanPlayer.attack(Number(rawAttack[0]), Number(rawAttack[2]))
+        humanPlayer.attack(Number(rawAttack[5]), Number(rawAttack[7]))
       );
     }
     setIsHumanAttacking(true);
@@ -68,10 +68,10 @@ function App(props) {
     ev.dataTransfer.setData("text", ev.target.id);
   };
 
-  const [twoShip, setTwoship] = useState(true);
-  const [threeShip, setThreeship] = useState(true);
-  const [fourShip, setFourship] = useState(true);
-  const [fiveShip, setFiveship] = useState(true);
+  const [twoShip, setTwoship] = useState(4);
+  const [threeShip, setThreeship] = useState(3);
+  const [fourShip, setFourship] = useState(2);
+  const [fiveShip, setFiveship] = useState(1);
 
   const drop = (ev) => {
     ev.preventDefault();
@@ -86,6 +86,22 @@ function App(props) {
     let orientation = data[1] === "h" ? "horizontal" : "vertical";
     try {
       humanBoard.placeShip(row, column, size, orientation);
+      switch (size) {
+        case 2:
+          setTwoship(twoShip - 1);
+          break;
+        case 3:
+          setThreeship(threeShip - 1);
+          break;
+        case 4:
+          setFourship(fourShip - 1);
+          break;
+        case 5:
+          setFiveship(fiveShip - 1);
+          break;
+        default:
+          break;
+      }
     } catch (error) {
       console.log(error);
 
@@ -96,7 +112,6 @@ function App(props) {
       }
     } finally {
       //trigger rerender
-      setIsHumanAttacking(true);
     }
   };
 

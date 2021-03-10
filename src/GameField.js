@@ -1,18 +1,58 @@
+import { useState } from "react";
 import "./styles/GameField.css";
 
 const GameField = (props) => {
-  const allowDrop = (ev) => {
+  const [cellsToHighlight, setCellsToHighlight] = useState([]);
+
+  const calcCellsToHighlight = (row, column, size, orient) => {
+    let cellsArray = [];
+    if (orient === "h") {
+      for (let i = 0; i < size; i++) {
+        if (column + i < 10) {
+          cellsArray.push({
+            row: row,
+            column: column + i,
+          });
+        }
+      }
+    } else if (orient === "v") {
+      for (let i = 0; i < size; i++) {
+        if (row + i < 10) {
+          cellsArray.push({
+            row: row + i,
+            column: column,
+          });
+        }
+      }
+    }
+    return cellsArray;
+  };
+
+  const highlightCell = (ev) => {
     ev.preventDefault();
 
     if (ev.target.className === "empty-cell") {
       ev.target.className = "empty-cell-highlight";
+      let row = Number(ev.target.id[0]);
+      let column = Number(ev.target.id[2]);
+      let shipData = ev.dataTransfer.getData("text");
+      let size = Number(shipData[0]);
+      let orient = shipData[1];
+      let cellsArray = calcCellsToHighlight(row, column, size, orient);
+      for (const item of cellsArray) {
+        let cell = document.getElementById(`${item.row},${item.column}`);
+        if (cell) {
+          cell.className = "empty-cell-highlight";
+        }
+      }
     }
   };
 
-  const highleghtCell = (ev) => {
-    console.log(ev);
-    if (ev.target.className === "empty-cell-highlight") {
-      ev.target.className = "empty-cell";
+  const cancelHighlight = (ev) => {
+    //
+    let cell = document.getElementsByClassName("empty-cell-highlight");
+    while (cell.length > 0) {
+      cell[0].className = "empty-cell";
     }
   };
 
@@ -42,8 +82,8 @@ const GameField = (props) => {
                   className="empty-cell"
                   id={[row, column]}
                   onDrop={props.handleDrop}
-                  onDragOver={allowDrop}
-                  onDragLeave={highleghtCell}
+                  onDragOver={highlightCell}
+                  onDragLeave={cancelHighlight}
                   key={"empty" + [row, column]}
                 ></div>
               );
@@ -72,7 +112,7 @@ const GameField = (props) => {
               return (
                 <div
                   className="empty-cell"
-                  id={[row, column]}
+                  id={"enemy" + [row, column]}
                   onClick={props.handleClick}
                   key={"enemyempty" + [row, column]}
                 ></div>
