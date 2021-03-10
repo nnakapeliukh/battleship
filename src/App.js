@@ -76,9 +76,6 @@ function App(props) {
   const drop = (ev) => {
     ev.preventDefault();
     let data = ev.dataTransfer.getData("text");
-    console.log(data);
-
-    console.log(ev.target.id);
     //extract info
     let row = Number(ev.target.id[0]);
     let column = Number(ev.target.id[2]);
