@@ -1,8 +1,9 @@
 import GameField from "./GameField";
 import GameboardFactory from "./GameboardFactory";
 import PlayerFactory from "./PlayerFactory";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import DragShips from "./DragShips";
+import StartScreen from "./StartScreen";
 
 function App(props) {
   const [humanBoard, setHumanBoard] = useState(GameboardFactory());
@@ -11,18 +12,21 @@ function App(props) {
   const [humanPlayer, setHumanPlayer] = useState(PlayerFactory(true, true));
   const [pcPlayer, setPcPlayer] = useState(PlayerFactory(false, false));
 
-  useEffect(() => {
-    pcPlayer.placeShips(pcBoard.placeShip);
-    humanBoard.placeShip(4, 4, 3, "vertical");
-
-    humanBoard.placeShip(6, 6, 3, "vertical");
-
-    humanBoard.placeShip(0, 0, 3, "vertical");
-
-    setIsHumanAttacking(true);
-  }, []);
-
   const [isHumanAttacking, setIsHumanAttacking] = useState(false);
+  const [showTitle, setShowTitle] = useState(true);
+
+  const startGame = () => {
+    setHumanBoard(GameboardFactory());
+    setPcBoard(GameboardFactory());
+    setHumanPlayer(PlayerFactory(true, true));
+    setPcPlayer(PlayerFactory(false, false));
+    setShowPlaceRandomBut(true);
+    setShowTitle(false);
+  };
+
+  useLayoutEffect(() => {
+    pcPlayer.placeShips(pcBoard.placeShip);
+  }, [pcPlayer]);
 
   const playerAttacks = (event) => {
     const rawAttack = event.target.id; //raw attack is id of the cell - "enemy1,1"
@@ -34,6 +38,7 @@ function App(props) {
     setIsHumanAttacking(true);
   };
 
+  //next turn
   useEffect(() => {
     if (isHumanAttacking) {
       setIsHumanAttacking(false);
@@ -71,7 +76,8 @@ function App(props) {
   const [threeShip, setThreeship] = useState(3);
   const [fourShip, setFourship] = useState(2);
   const [fiveShip, setFiveship] = useState(1);
-
+  const [showPlaceRandomBut, setShowPlaceRandomBut] = useState(true);
+  const [showShips, setShowShips] = useState(true);
   const drop = (ev) => {
     ev.preventDefault();
     let data = ev.dataTransfer.getData("text");
@@ -98,6 +104,7 @@ function App(props) {
         default:
           break;
       }
+      setShowPlaceRandomBut(false);
     } else {
       //change the cell that was highlited back to empty
       let cell = document.getElementsByClassName("empty-cell-highlight");
@@ -109,6 +116,7 @@ function App(props) {
 
   return (
     <div className="App">
+      <StartScreen showTitle={showTitle} startGame={startGame} />
       <GameField
         myField={humanBoard.getField()}
         enemyField={pcBoard.getField()}
@@ -117,10 +125,17 @@ function App(props) {
       />
       <DragShips
         handleDrag={drag}
+        showShips={showShips}
         twoShip={twoShip}
         threeShip={threeShip}
         fourShip={fourShip}
         fiveShip={fiveShip}
+        showPlaceRandomBut={showPlaceRandomBut}
+        handlePlaceRandom={() => {
+          humanPlayer.placeShips(humanBoard.placeShip);
+          setShowPlaceRandomBut(false);
+          setShowShips(false);
+        }}
       />
     </div>
   );

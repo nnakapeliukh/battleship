@@ -1,3 +1,13 @@
+.random-button {
+  transition: 0.2s;
+  border: 1px #accbee solid;
+  background-color: white;
+}
+.random-button:hover {
+  transition: 0.2s;
+  background-color: #accbee;
+}
+
 .i2-ship {
   display: block;
   width: 80px;

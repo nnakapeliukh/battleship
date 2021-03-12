@@ -59,7 +59,6 @@ const PlayerFactory = (isTurn, isHumanIn) => {
         column = Math.floor(Math.random() * 10);
         orient = Math.round(Math.random());
         orient ? (orient = "vertical") : (orient = "horizontal");
-        console.log(row, column, size, orient);
       } while (!placeHandler(row, column, size, orient));
     }
   };

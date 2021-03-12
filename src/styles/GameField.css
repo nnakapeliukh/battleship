@@ -8,6 +8,10 @@
   width: var(--field-size);
   grid-template-columns: repeat(auto-fit, minmax(var(--cell-size), 1fr));
   margin: 50px;
+  position: absolute;
+  top: 40%;
+  left: 30%;
+  transform: translate(-50%, -50%);
 }
 
 .enemy-field-grid {
@@ -15,13 +19,18 @@
   width: var(--field-size);
   grid-template-columns: repeat(auto-fit, minmax(var(--cell-size), 1fr));
   margin: 50px;
+  position: absolute;
+  top: 40%;
+  left: 60%;
+  transform: translate(-50%, -50%);
 }
 
 .empty-cell {
+  transition: 0.1s;
   width: var(--cell-size);
   height: var(--cell-size);
-  background-color: aqua;
-  border: black 1px solid;
+  background-color: #a2c7f1;
+  border: #8c8f5d83 1px solid;
 }
 
 .empty-cell-highlight {
@@ -31,28 +40,28 @@
   border: black 1px solid;
 }
 
-.empty-cell:target {
-  transform: scale(1.1);
-  background-color: rgb(0, 214, 214);
+.enemy-field-grid .empty-cell:hover {
+  transition: 0.1s;
+  background-color: #5387bd;
 }
 
 .ship-cell {
   width: var(--cell-size);
   height: var(--cell-size);
-  background-color: rgb(48, 172, 48);
-  border: black 1px solid;
+  background-color: rgb(0, 122, 122);
+  border: rgba(0, 0, 0, 0.431) 1px dotted;
 }
 
 .hit-ship-cell {
   width: var(--cell-size);
   height: var(--cell-size);
-  background-color: rgb(255, 0, 0);
-  border: rgb(0, 0, 0) 1px solid;
+  background-color: #7a0000;
+  border: rgba(0, 0, 0, 0.37) 1px dotted;
 }
 
 .hit-cell {
   width: var(--cell-size);
   height: var(--cell-size);
-  background-color: rgb(60, 0, 255);
-  border: rgb(0, 0, 0) 1px solid;
+  background-color: #5387bd;
+  border: rgba(0, 0, 0, 0.383) 1px dotted;
 }
