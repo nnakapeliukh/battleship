@@ -6,8 +6,8 @@ const StartScreen = (props) => {
     <React.Fragment>
       {props.showTitle ? (
         <div className="title-div">
-          <div class="wrapper">
-            <div class="wave"></div>
+          <div className="wrapper">
+            <div className="wave"></div>
           </div>
 
           <button className="start-button" onClick={props.startGame}>

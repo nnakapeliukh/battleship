@@ -1,5 +1,6 @@
-const ShipFactory = (lengthIn) => {
+const ShipFactory = (lengthIn, orientIn) => {
   const length = lengthIn;
+  const orient = orientIn;
   let hullIsHit = new Array(length).fill(false);
 
   const hit = (positionHit) => {
@@ -16,7 +17,7 @@ const ShipFactory = (lengthIn) => {
     return true;
   };
 
-  return { length, hit, isSunk };
+  return { length, hit, isSunk, orient };
 };
 
 export default ShipFactory;

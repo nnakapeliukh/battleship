@@ -40,28 +40,71 @@
   border: black 1px solid;
 }
 
-.enemy-field-grid .empty-cell:hover {
-  transition: 0.1s;
-  background-color: #5387bd;
-}
-
 .ship-cell {
   width: var(--cell-size);
   height: var(--cell-size);
   background-color: rgb(0, 122, 122);
   border: rgba(0, 0, 0, 0.431) 1px dotted;
 }
+.enemy-field-grid .enemy-empty-cell {
+  position: relative;
+  width: var(--cell-size);
+  height: var(--cell-size);
+  background-color: #a2c7f1;
+  border: rgba(0, 0, 0, 0.431) 1px dotted;
+  transform-style: preserve-3d;
+}
+
+.enemy-empty-cell:hover {
+  transition: 0.1s;
+  background-color: #5387bd;
+}
 
 .hit-ship-cell {
   width: var(--cell-size);
   height: var(--cell-size);
-  background-color: #7a0000;
+  background-color: #923a3a;
   border: rgba(0, 0, 0, 0.37) 1px dotted;
+  /* position: relative; */
+  /* transform: translateZ(-10px); */
 }
 
 .hit-cell {
   width: var(--cell-size);
   height: var(--cell-size);
-  background-color: #5387bd;
+  background-color: #437cb9;
   border: rgba(0, 0, 0, 0.383) 1px dotted;
+}
+
+.placed-ship {
+  display: inline;
+  position: relative;
+  transform-origin: 0 0;
+  transform: translateZ(-10px);
+}
+
+.ship-size2 {
+  width: 80px;
+  height: 40px;
+}
+
+.ship-size3 {
+  width: 120px;
+  height: 40px;
+}
+
+.ship-size4 {
+  width: 160px;
+  height: 40px;
+
+  transform: translateZ(-10px);
+}
+
+.ship-size5 {
+  width: 200px;
+  height: 40px;
+}
+.placed-vertical {
+  transform: rotate(90deg) translateY(-40px) translateZ(-10px);
+  transform-origin: 0 0;
 }

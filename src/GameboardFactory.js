@@ -14,7 +14,7 @@ const GameboardFactory = () => {
   })();
 
   const placeShip = (row, column, size, orientation) => {
-    const ship = ShipFactory(size);
+    const ship = ShipFactory(size, orientation);
 
     if (orientation === "vertical") {
       if (row + size > 10) {

@@ -2,6 +2,9 @@ import { useState } from "react";
 import "./styles/GameField.css";
 
 import ship2 from "./img/ship2.png";
+import ship3 from "./img/ship3.png";
+import ship4 from "./img/ship4.png";
+import ship5 from "./img/ship5.png";
 
 const GameField = (props) => {
   const [cellsToHighlight, setCellsToHighlight] = useState([]);
@@ -58,6 +61,100 @@ const GameField = (props) => {
     }
   };
 
+  const placeShipImage = (cell, row, column) => {
+    let length = cell.ship.length;
+    let orient = cell.ship.orient;
+    let imgId = length + orient[0] + "onboard";
+    let shipImage;
+    switch (length) {
+      case 2:
+        orient === "horizontal"
+          ? (shipImage = (
+              <img
+                className="placed-ship ship-size2 "
+                src={ship2}
+                draggable={false}
+                alt="small ship"
+              />
+            ))
+          : (shipImage = (
+              <img
+                className="placed-vertical placed-ship ship-size2 "
+                src={ship2}
+                alt="small ship"
+                draggable={false}
+              />
+            ));
+
+        break;
+      case 3:
+        orient === "horizontal"
+          ? (shipImage = (
+              <img
+                className="placed-ship ship-size3 "
+                src={ship3}
+                draggable={false}
+                alt="small ship"
+              />
+            ))
+          : (shipImage = (
+              <img
+                className="placed-vertical placed-ship ship-size3 "
+                src={ship3}
+                alt="small ship"
+                draggable={false}
+              />
+            ));
+
+        break;
+      case 4:
+        orient === "horizontal"
+          ? (shipImage = (
+              <img
+                className="placed-ship ship-size4 "
+                src={ship4}
+                draggable={false}
+                alt="small ship"
+              />
+            ))
+          : (shipImage = (
+              <img
+                className="placed-vertical placed-ship ship-size4 "
+                src={ship4}
+                alt="small ship"
+                draggable={false}
+              />
+            ));
+
+        break;
+      case 5:
+        orient === "horizontal"
+          ? (shipImage = (
+              <img
+                className="placed-ship ship-size5 "
+                src={ship5}
+                draggable={false}
+                alt="small ship"
+              />
+            ))
+          : (shipImage = (
+              <img
+                className="placed-vertical placed-ship ship-size5 "
+                src={ship5}
+                alt="small ship"
+                draggable={false}
+              />
+            ));
+
+        break;
+
+      default:
+        shipImage = null;
+        break;
+    }
+    return shipImage;
+  };
+
   return (
     <div>
       <div className="my-field-grid">
@@ -65,10 +162,17 @@ const GameField = (props) => {
           return cellRow.map((cell, column) => {
             if (cell.isShip && cell.hit) {
               return (
-                <div
-                  className="hit-ship-cell"
-                  key={"hitship" + [row, column]}
-                ></div>
+                <div className="hit-ship-cell" key={"hitship" + [row, column]}>
+                  {cell.hullNum === 0
+                    ? placeShipImage(cell, row, column)
+                    : null}
+                </div>
+              );
+            } else if (cell.isShip && cell.hullNum === 0) {
+              return (
+                <div className="ship-cell" key={"ship" + [row, column]}>
+                  {placeShipImage(cell, row, column)}
+                </div>
               );
             } else if (cell.isShip) {
               return (
@@ -96,11 +200,28 @@ const GameField = (props) => {
       <div className="enemy-field-grid">
         {props.enemyField.map((cellRow, row) => {
           return cellRow.map((cell, column) => {
-            if (cell.isShip && cell.hit) {
+            if (cell.isShip && cell.hit && cell.ship.isSunk()) {
+              return (
+                <div className="hit-ship-cell" key={"hitship" + [row, column]}>
+                  {cell.hullNum === 0
+                    ? placeShipImage(cell, row, column)
+                    : null}
+                </div>
+              );
+            } else if (cell.isShip && cell.hit) {
               return (
                 <div
                   className="hit-ship-cell"
-                  key={"enemyhitship" + [row, column]}
+                  key={"hitship" + [row, column]}
+                ></div>
+              );
+            } else if (cell.isShip && cell.hullNum === 0) {
+              return (
+                <div
+                  className="enemy-empty-cell"
+                  id={"enemy" + [row, column]}
+                  onClick={props.handleClick}
+                  key={"enemyempty" + [row, column]}
                 ></div>
               );
             } else if (cell.hit) {
@@ -113,7 +234,7 @@ const GameField = (props) => {
             } else {
               return (
                 <div
-                  className="empty-cell"
+                  className="enemy-empty-cell"
                   id={"enemy" + [row, column]}
                   onClick={props.handleClick}
                   key={"enemyempty" + [row, column]}
