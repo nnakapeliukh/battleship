@@ -34,3 +34,5 @@ describe("Is ships still alive", () => {
     expect(newShip.isSunk()).toBe(true);
   });
 });
+
+describe("PC player places its ships randomly", () => {});

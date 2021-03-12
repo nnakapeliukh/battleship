@@ -15,33 +15,38 @@ const GameboardFactory = () => {
 
   const placeShip = (row, column, size, orientation) => {
     const ship = ShipFactory(size);
-    fleet.push(ship);
 
     if (orientation === "vertical") {
       if (row + size > 10) {
-        throw "Placement error: vertical - out of reach";
+        // throw "Placement error: vertical - out of reach";
+        return false;
       }
       if (!isPlacable(row, column, size, orientation)) {
-        throw "Placement error: another ship";
+        // throw "Placement error: another ship";
+        return false;
       }
       for (let i = 0; i < size; i++) {
         field[row + i][column].isShip = true;
         field[row + i][column].ship = ship;
         field[row + i][column].hullNum = i;
       }
+      fleet.push(ship);
       return true;
     } else if (orientation === "horizontal") {
       if (column + size > 10) {
-        throw "Placement error: horizontal - out of reach";
+        // throw "Placement error: horizontal - out of reach";
+        return false;
       }
       if (!isPlacable(row, column, size, orientation)) {
-        throw "Placement error: another ship";
+        // throw "Placement error: another ship";
+        return false;
       }
       for (let i = 0; i < size; i++) {
         field[row][column + i].isShip = true;
         field[row][column + i].ship = ship;
         field[row][column + i].hullNum = i;
       }
+      fleet.push(ship);
       return true;
     } else {
       return false;

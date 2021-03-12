@@ -12,13 +12,12 @@ function App(props) {
   const [pcPlayer, setPcPlayer] = useState(PlayerFactory(false, false));
 
   useEffect(() => {
-    humanBoard.placeShip(0, 0, 3, "vertical");
-    // humanBoard.receiveAttack(pcPlayer.attack());
-    // humanBoard.receiveAttack(pcPlayer.attack());
+    pcPlayer.placeShips(pcBoard.placeShip);
+    humanBoard.placeShip(4, 4, 3, "vertical");
 
-    pcBoard.placeShip(0, 0, 3, "vertical");
-    // pcBoard.receiveAttack(humanPlayer.attack(0, 0));
-    // pcBoard.receiveAttack(humanPlayer.attack(1, 1));
+    humanBoard.placeShip(6, 6, 3, "vertical");
+
+    humanBoard.placeShip(0, 0, 3, "vertical");
 
     setIsHumanAttacking(true);
   }, []);
@@ -81,8 +80,8 @@ function App(props) {
     let column = Number(ev.target.id[2]);
     let size = Number(data[0]);
     let orientation = data[1] === "h" ? "horizontal" : "vertical";
-    try {
-      humanBoard.placeShip(row, column, size, orientation);
+
+    if (humanBoard.placeShip(row, column, size, orientation)) {
       switch (size) {
         case 2:
           setTwoship(twoShip - 1);
@@ -99,16 +98,12 @@ function App(props) {
         default:
           break;
       }
-    } catch (error) {
-      console.log(error);
-
+    } else {
       //change the cell that was highlited back to empty
       let cell = document.getElementsByClassName("empty-cell-highlight");
       while (cell.length > 0) {
         cell[0].className = "empty-cell";
       }
-    } finally {
-      //trigger rerender
     }
   };
 

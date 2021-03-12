@@ -1,6 +1,8 @@
 import { useState } from "react";
 import "./styles/GameField.css";
 
+import ship2 from "./img/ship2.png";
+
 const GameField = (props) => {
   const [cellsToHighlight, setCellsToHighlight] = useState([]);
 

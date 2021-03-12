@@ -49,7 +49,22 @@ const PlayerFactory = (isTurn, isHumanIn) => {
     return alreadyAttacked;
   };
 
-  return { nowYourTurn, isMyTurn, attack, getAllHits };
+  const placeShips = (placeHandler) => {
+    const fleet = [5, 4, 4, 3, 3, 3, 2, 2, 2, 2]; //size of each ship
+    let row, column, orient;
+
+    for (const size of fleet) {
+      do {
+        row = Math.floor(Math.random() * 10);
+        column = Math.floor(Math.random() * 10);
+        orient = Math.round(Math.random());
+        orient ? (orient = "vertical") : (orient = "horizontal");
+        console.log(row, column, size, orient);
+      } while (!placeHandler(row, column, size, orient));
+    }
+  };
+
+  return { nowYourTurn, isMyTurn, attack, getAllHits, placeShips };
 };
 
 export default PlayerFactory;
