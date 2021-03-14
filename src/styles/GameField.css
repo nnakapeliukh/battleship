@@ -3,15 +3,19 @@
   --field-size: 400px;
 }
 
+.field-grids {
+  display: flex;
+}
+.grid-wrapper {
+  flex: 50%;
+  text-align: center;
+}
 .my-field-grid {
   display: inline-grid;
   width: var(--field-size);
   grid-template-columns: repeat(auto-fit, minmax(var(--cell-size), 1fr));
   margin: 50px;
-  position: absolute;
-  top: 40%;
-  left: 30%;
-  transform: translate(-50%, -50%);
+  /* margin-right: 300px; */
 }
 
 .enemy-field-grid {
@@ -19,10 +23,10 @@
   width: var(--field-size);
   grid-template-columns: repeat(auto-fit, minmax(var(--cell-size), 1fr));
   margin: 50px;
-  position: absolute;
-  top: 40%;
+  /* position: absolute; */
+  /* top: 40%;
   left: 60%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); */
 }
 
 .empty-cell {

@@ -1,13 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./styles/StartScreen.css";
 
-const StartScreen = (props) => {
+const EndScreen = (props) => {
   return (
     <React.Fragment>
-      {props.showTitle ? (
+      {props.gameOver ? (
         <div className="title-div">
-          <div className="wrapper">
-            <h1>Battleship</h1>
+          <div className="end-wrapper">
+            {props.humanWon ? <h1>Victorious</h1> : <h1>Destroyed</h1>}
             <div className="wave"></div>
           </div>
 
@@ -20,4 +20,4 @@ const StartScreen = (props) => {
   );
 };
 
-export default StartScreen;
+export default EndScreen;

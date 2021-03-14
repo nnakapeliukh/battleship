@@ -156,94 +156,106 @@ const GameField = (props) => {
   };
 
   return (
-    <div>
-      <div className="my-field-grid">
-        {props.myField.map((cellRow, row) => {
-          return cellRow.map((cell, column) => {
-            if (cell.isShip && cell.hit) {
-              return (
-                <div className="hit-ship-cell" key={"hitship" + [row, column]}>
-                  {cell.hullNum === 0
-                    ? placeShipImage(cell, row, column)
-                    : null}
-                </div>
-              );
-            } else if (cell.isShip && cell.hullNum === 0) {
-              return (
-                <div className="ship-cell" key={"ship" + [row, column]}>
-                  {placeShipImage(cell, row, column)}
-                </div>
-              );
-            } else if (cell.isShip) {
-              return (
-                <div className="ship-cell" key={"ship" + [row, column]}></div>
-              );
-            } else if (cell.hit) {
-              return (
-                <div className="hit-cell" key={"hit" + [row, column]}></div>
-              );
-            } else {
-              return (
-                <div
-                  className="empty-cell"
-                  id={[row, column]}
-                  onDrop={props.handleDrop}
-                  onDragOver={highlightCell}
-                  onDragLeave={cancelHighlight}
-                  key={"empty" + [row, column]}
-                ></div>
-              );
-            }
-          });
-        })}
+    <div className="field-grids">
+      <div className="grid-wrapper">
+        <div className="my-field-grid">
+          {props.myField.map((cellRow, row) => {
+            return cellRow.map((cell, column) => {
+              if (cell.isShip && cell.hit) {
+                return (
+                  <div
+                    className="hit-ship-cell"
+                    key={"hitship" + [row, column]}
+                  >
+                    {cell.hullNum === 0
+                      ? placeShipImage(cell, row, column)
+                      : null}
+                  </div>
+                );
+              } else if (cell.isShip && cell.hullNum === 0) {
+                return (
+                  <div className="ship-cell" key={"ship" + [row, column]}>
+                    {placeShipImage(cell, row, column)}
+                  </div>
+                );
+              } else if (cell.isShip) {
+                return (
+                  <div className="ship-cell" key={"ship" + [row, column]}></div>
+                );
+              } else if (cell.hit) {
+                return (
+                  <div className="hit-cell" key={"hit" + [row, column]}></div>
+                );
+              } else {
+                return (
+                  <div
+                    className="empty-cell"
+                    id={[row, column]}
+                    onDrop={props.handleDrop}
+                    onDragOver={highlightCell}
+                    onDragLeave={cancelHighlight}
+                    key={"empty" + [row, column]}
+                  ></div>
+                );
+              }
+            });
+          })}
+        </div>
       </div>
-      <div className="enemy-field-grid">
-        {props.enemyField.map((cellRow, row) => {
-          return cellRow.map((cell, column) => {
-            if (cell.isShip && cell.hit && cell.ship.isSunk()) {
-              return (
-                <div className="hit-ship-cell" key={"hitship" + [row, column]}>
-                  {cell.hullNum === 0
-                    ? placeShipImage(cell, row, column)
-                    : null}
-                </div>
-              );
-            } else if (cell.isShip && cell.hit) {
-              return (
-                <div
-                  className="hit-ship-cell"
-                  key={"hitship" + [row, column]}
-                ></div>
-              );
-            } else if (cell.isShip && cell.hullNum === 0) {
-              return (
-                <div
-                  className="enemy-empty-cell"
-                  id={"enemy" + [row, column]}
-                  onClick={props.handleClick}
-                  key={"enemyempty" + [row, column]}
-                ></div>
-              );
-            } else if (cell.hit) {
-              return (
-                <div
-                  className="hit-cell"
-                  key={"enemyhit" + [row, column]}
-                ></div>
-              );
-            } else {
-              return (
-                <div
-                  className="enemy-empty-cell"
-                  id={"enemy" + [row, column]}
-                  onClick={props.handleClick}
-                  key={"enemyempty" + [row, column]}
-                ></div>
-              );
-            }
-          });
-        })}
-      </div>
+      {props.isFleetPlaced ? (
+        <div className="grid-wrapper">
+          <div className="enemy-field-grid">
+            {props.enemyField.map((cellRow, row) => {
+              return cellRow.map((cell, column) => {
+                if (cell.isShip && cell.hit && cell.ship.isSunk()) {
+                  return (
+                    <div
+                      className="hit-ship-cell"
+                      key={"hitship" + [row, column]}
+                    >
+                      {cell.hullNum === 0
+                        ? placeShipImage(cell, row, column)
+                        : null}
+                    </div>
+                  );
+                } else if (cell.isShip && cell.hit) {
+                  return (
+                    <div
+                      className="hit-ship-cell"
+                      key={"hitship" + [row, column]}
+                    ></div>
+                  );
+                } else if (cell.isShip && cell.hullNum === 0) {
+                  return (
+                    <div
+                      className="enemy-empty-cell"
+                      id={"enemy" + [row, column]}
+                      onClick={props.handleClick}
+                      key={"enemyempty" + [row, column]}
+                    ></div>
+                  );
+                } else if (cell.hit) {
+                  return (
+                    <div
+                      className="hit-cell"
+                      key={"enemyhit" + [row, column]}
+                    ></div>
+                  );
+                } else {
+                  return (
+                    <div
+                      className="enemy-empty-cell"
+                      id={"enemy" + [row, column]}
+                      onClick={props.handleClick}
+                      key={"enemyempty" + [row, column]}
+                    ></div>
+                  );
+                }
+              });
+            })}
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 };

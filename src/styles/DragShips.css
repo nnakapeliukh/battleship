@@ -1,7 +1,28 @@
+.drag-container {
+  position: relative;
+
+  display: flex;
+
+  flex-direction: row;
+
+  justify-content: space-evenly;
+  /* top: 10%;
+  left: 0%; */
+  /* transform: translate(-50%, -50%); */
+}
+
+.ship-container {
+  /* margin: 80px; */
+  display: flex;
+  justify-content: center;
+  height: auto;
+  width: auto;
+}
 .random-button {
   transition: 0.2s;
   border: 1px #accbee solid;
   background-color: white;
+  padding: 10px;
 }
 .random-button:hover {
   transition: 0.2s;
@@ -25,6 +46,15 @@
   width: 160px;
   height: 40px;
   cursor: move;
+  animation: dragHelp 1.5s 0.3s 1;
+}
+
+@keyframes dragHelp {
+  0% {
+  }
+  100% {
+    transform: translate(-100%, -500%);
+  }
 }
 
 .i5-ship {
@@ -32,12 +62,20 @@
   width: 200px;
   height: 40px;
   cursor: move;
+  animation: rotateHelp 1s 1.8s 1;
 }
 
+@keyframes rotateHelp {
+  0% {
+  }
+  50% {
+    transform: rotate(90deg);
+  }
+  100% {
+    transform: rotate(0);
+  }
+}
 .ship-vertical {
+  transition-duration: 0.3s;
   transform: rotate(90deg);
-}
-
-.ship-container {
-  display: inline-block;
 }

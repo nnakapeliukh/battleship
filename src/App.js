@@ -4,6 +4,8 @@ import PlayerFactory from "./PlayerFactory";
 import { useEffect, useLayoutEffect, useState } from "react";
 import DragShips from "./DragShips";
 import StartScreen from "./StartScreen";
+import EndScreen from "./EndScreen.js";
+import "./styles/App.css";
 
 function App(props) {
   const [humanBoard, setHumanBoard] = useState(GameboardFactory());
@@ -21,7 +23,15 @@ function App(props) {
     setHumanPlayer(PlayerFactory(true, true));
     setPcPlayer(PlayerFactory(false, false));
     setShowPlaceRandomBut(true);
+    setShowShips(true);
     setShowTitle(false);
+    setGameOver(false);
+    setHumanWon(false);
+    setIsFleetPlaced(false);
+    setTwoship(4);
+    setThreeship(3);
+    setFourship(2);
+    setFiveship(1);
   };
 
   useLayoutEffect(() => {
@@ -30,12 +40,12 @@ function App(props) {
 
   const playerAttacks = (event) => {
     const rawAttack = event.target.id; //raw attack is id of the cell - "enemy1,1"
+    let row = Number(rawAttack[5]);
+    let column = Number(rawAttack[7]);
     if (humanPlayer.isMyTurn()) {
-      pcBoard.receiveAttack(
-        humanPlayer.attack(Number(rawAttack[5]), Number(rawAttack[7]))
-      );
+      pcBoard.receiveAttack(humanPlayer.attack(row, column));
+      setIsHumanAttacking(true);
     }
-    setIsHumanAttacking(true);
   };
 
   //next turn
@@ -47,6 +57,8 @@ function App(props) {
   }, [isHumanAttacking]);
 
   const [currentPlayer, setCurrentPlayer] = useState("human");
+  const [gameOver, setGameOver] = useState(false);
+  const [humanWon, setHumanWon] = useState(false);
 
   useEffect(() => {
     if (currentPlayer === "human" && !humanPlayer.isMyTurn()) {
@@ -55,18 +67,18 @@ function App(props) {
       humanBoard.receiveAttack(pcPlayer.attack(null, null));
       setCurrentPlayer("human");
     }
-    if (humanBoard.isFleetDestroyed() || pcBoard.isFleetDestroyed()) {
+    if (
+      (humanBoard.isFleetDestroyed() || pcBoard.isFleetDestroyed()) &&
+      isFleetPlaced
+    ) {
       setGameOver(true);
+      if (pcBoard.isFleetDestroyed()) {
+        setHumanWon(true);
+
+        console.log("you won");
+      }
     }
   }, [currentPlayer]);
-
-  const [gameOver, setGameOver] = useState(false);
-
-  useEffect(() => {
-    if (gameOver) {
-      console.log("GAME OVER");
-    }
-  }, [gameOver]);
 
   const drag = (ev) => {
     ev.dataTransfer.setData("text", ev.target.id);
@@ -77,7 +89,9 @@ function App(props) {
   const [fourShip, setFourship] = useState(2);
   const [fiveShip, setFiveship] = useState(1);
   const [showPlaceRandomBut, setShowPlaceRandomBut] = useState(true);
-  const [showShips, setShowShips] = useState(true);
+  const [showShips, setShowShips] = useState(false);
+  const [isFleetPlaced, setIsFleetPlaced] = useState(false);
+
   const drop = (ev) => {
     ev.preventDefault();
     let data = ev.dataTransfer.getData("text");
@@ -114,14 +128,22 @@ function App(props) {
     }
   };
 
+  useEffect(() => {
+    if (!twoShip && !threeShip && !fourShip && !fiveShip) {
+      setIsFleetPlaced(true);
+    }
+  }, [twoShip, threeShip, fourShip, fiveShip]);
+
   return (
     <div className="App">
       <StartScreen showTitle={showTitle} startGame={startGame} />
+      <h1 className="title">Battleship</h1>
       <GameField
         myField={humanBoard.getField()}
         enemyField={pcBoard.getField()}
         handleClick={playerAttacks}
         handleDrop={drop}
+        isFleetPlaced={isFleetPlaced}
       />
       <DragShips
         handleDrag={drag}
@@ -135,7 +157,13 @@ function App(props) {
           humanPlayer.placeShips(humanBoard.placeShip);
           setShowPlaceRandomBut(false);
           setShowShips(false);
+          setIsFleetPlaced(true);
         }}
+      />
+      <EndScreen
+        gameOver={gameOver}
+        humanWon={humanWon}
+        startGame={startGame}
       />
     </div>
   );

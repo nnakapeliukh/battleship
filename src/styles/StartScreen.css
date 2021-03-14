@@ -16,13 +16,15 @@
   transform: translate(-50%, -50%);
   border: 1px #accbee solid;
   background-color: white;
+  padding: 10px;
 }
 .start-button:hover {
   transition: 0.2s;
   background-color: #accbee;
 }
 
-.wrapper {
+.wrapper,
+.end-wrapper {
   width: 500px;
   height: 500px;
   position: absolute;
@@ -30,9 +32,13 @@
   top: 50%;
   transform: translate(-50%, -50%);
   border-radius: 5px;
-  background-image: linear-gradient(to top, #accbee 0%, #e7f0fd 100%);
+  background-image: linear-gradient(to top, #8fbff6 0%, #d4e5fb 100%);
   /* background-image: linear-gradient(to top, #b87070 0%, #f32a2a 100%); */
   overflow: hidden;
+}
+
+.end-wrapper {
+  background-image: linear-gradient(to top, #f83838 0%, #d4e5fb 100%);
 }
 
 .wave {
@@ -46,6 +52,17 @@
   border-radius: 35%;
   background: rgb(255, 255, 255);
   animation: wave 15s infinite linear;
+}
+.wrapper h1,
+.end-wrapper h1 {
+  position: absolute;
+  top: 75%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+  font-size: 80px;
+  color: rgb(255, 255, 227);
+  font-family: "Courier New", Courier, monospace;
 }
 
 @keyframes wave {
