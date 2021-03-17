@@ -6,6 +6,7 @@ import DragShips from "./DragShips";
 import StartScreen from "./StartScreen";
 import EndScreen from "./EndScreen.js";
 import "./styles/App.css";
+import GitFooter from "./GitFooter";
 
 function App(props) {
   const [humanBoard, setHumanBoard] = useState(GameboardFactory());
@@ -165,6 +166,7 @@ function App(props) {
         humanWon={humanWon}
         startGame={startGame}
       />
+      <GitFooter />
     </div>
   );
 }
