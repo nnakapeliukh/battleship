@@ -15,8 +15,9 @@
   left: 50%;
   transform: translate(-50%, -50%);
   border: 1px #accbee solid;
-  background-color: white;
-  padding: 10px;
+  background-color: #f6c68f;
+  padding: 20px 60px;
+  font-size: 30px;
 }
 .start-button:hover {
   transition: 0.2s;
@@ -62,6 +63,7 @@
   transform: translate(-50%, -50%);
   font-size: 80px;
   color: rgb(255, 255, 227);
+  
   font-family: "Courier New", Courier, monospace;
 }
 

@@ -18,6 +18,8 @@ function App(props) {
   const [isHumanAttacking, setIsHumanAttacking] = useState(false);
   const [showTitle, setShowTitle] = useState(true);
 
+  const [gameFlowText, setGameFlowText] = useState("Attack!");
+
   const startGame = () => {
     setHumanBoard(GameboardFactory());
     setPcBoard(GameboardFactory());
@@ -64,9 +66,13 @@ function App(props) {
   useEffect(() => {
     if (currentPlayer === "human" && !humanPlayer.isMyTurn()) {
       humanPlayer.nowYourTurn();
+      setGameFlowText("Attack!");
     } else if (currentPlayer === "pc" && !pcPlayer.isMyTurn()) {
-      humanBoard.receiveAttack(pcPlayer.attack(null, null));
-      setCurrentPlayer("human");
+      setGameFlowText("Take cover!!!");
+      setTimeout(() => {
+        humanBoard.receiveAttack(pcPlayer.attack(null, null));
+        setCurrentPlayer("human");
+      }, 1000);
     }
     if (
       (humanBoard.isFleetDestroyed() || pcBoard.isFleetDestroyed()) &&
@@ -75,8 +81,6 @@ function App(props) {
       setGameOver(true);
       if (pcBoard.isFleetDestroyed()) {
         setHumanWon(true);
-
-        console.log("you won");
       }
     }
   }, [currentPlayer]);
@@ -145,6 +149,7 @@ function App(props) {
         handleClick={playerAttacks}
         handleDrop={drop}
         isFleetPlaced={isFleetPlaced}
+        gameFlowText={gameFlowText}
       />
       <DragShips
         handleDrag={drag}

@@ -4,4 +4,10 @@
   font-size: 50px;
   font-family: "Courier New", Courier, monospace;
   color: #8fbff6c4;
+  text-shadow: 3px 3px 3px #000000d0;
+}
+
+body{
+  background-image: url(../img/sand-background.png);
+  /* background-color:#f2d06b9b; */
 }

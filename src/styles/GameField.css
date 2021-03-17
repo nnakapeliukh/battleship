@@ -33,35 +33,37 @@
   transition: 0.1s;
   width: var(--cell-size);
   height: var(--cell-size);
-  background-color: #a2c7f1;
+  background-color: #a2c7f196;
   border: #8c8f5d83 1px solid;
 }
 
 .empty-cell-highlight {
   width: var(--cell-size);
   height: var(--cell-size);
-  background-color: rgb(0, 122, 122);
+  background-color: #e49f51;
   border: black 1px solid;
 }
 
 .ship-cell {
   width: var(--cell-size);
   height: var(--cell-size);
-  background-color: rgb(0, 122, 122);
+  background-color:#e49f51;
   border: rgba(0, 0, 0, 0.431) 1px dotted;
 }
 .enemy-field-grid .enemy-empty-cell {
   position: relative;
   width: var(--cell-size);
   height: var(--cell-size);
-  background-color: #a2c7f1;
+  background-color: #a2c7f196;;
   border: rgba(0, 0, 0, 0.431) 1px dotted;
   transform-style: preserve-3d;
 }
 
 .enemy-empty-cell:hover {
-  transition: 0.1s;
-  background-color: #5387bd;
+  transition: 0.2s;
+  background-color: #91b8e4;
+  transform: scale(1.1);
+  z-index: 2;
 }
 
 .hit-ship-cell {

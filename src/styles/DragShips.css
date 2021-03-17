@@ -20,13 +20,13 @@
 }
 .random-button {
   transition: 0.2s;
-  border: 1px #accbee solid;
-  background-color: white;
+  border: 1px #3c90f0 solid;
+  background-color: #accbee;
   padding: 10px;
 }
 .random-button:hover {
   transition: 0.2s;
-  background-color: #accbee;
+  background-color: #f6b88f;
 }
 
 .i2-ship {
@@ -71,7 +71,7 @@
   }
   7% {
     transform: scale(0.7);
-    background-color: rgba(3, 123, 235, 0.657);
+    background-color: rgba(3, 123, 235, 0);
   }
   14%{
     transform: scale(1);
@@ -86,7 +86,7 @@
     background-color: rgba(3, 123, 235, 0);
   }
   67% {
-    background-color: rgba(3, 123, 235, 0.657);
+    background-color: rgba(3, 123, 235, 0);
     transform: scale(0.7) rotate(90deg);
   }
   74%{
