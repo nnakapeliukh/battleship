@@ -40,6 +40,7 @@
   width: 120px;
   height: 40px;
   cursor: move;
+  animation: rotateHelp 4s 2.5s 1;
 }
 .i4-ship {
   display: block;
@@ -62,14 +63,35 @@
   width: 200px;
   height: 40px;
   cursor: move;
-  animation: rotateHelp 1s 1.8s 1;
 }
 
 @keyframes rotateHelp {
-  0% {
+  0%{
+    transform: scale(1.1);
   }
-  50% {
+  7% {
+    transform: scale(0.7);
+    background-color: rgba(3, 123, 235, 0.657);
+  }
+  14%{
+    transform: scale(1);
+    background-color: rgba(3, 123, 235, 0);
+  }
+  45% {    
     transform: rotate(90deg);
+    background-color: rgba(3, 123, 235, 0);
+  }
+  60%{     
+    transform: scale(1.1) rotate(90deg);
+    background-color: rgba(3, 123, 235, 0);
+  }
+  67% {
+    background-color: rgba(3, 123, 235, 0.657);
+    transform: scale(0.7) rotate(90deg);
+  }
+  74%{
+    background-color: rgba(3, 123, 235, 0);
+    transform: scale(1) rotate(90deg);
   }
   100% {
     transform: rotate(0);
